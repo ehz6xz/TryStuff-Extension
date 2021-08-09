@@ -5,8 +5,8 @@ chrome.runtime.onInstalled.addListener(() => {
   console.log('Default background color set to %cgreen', `color: ${color}`);
 });
 
-chrome.browserAction.onClicked.addListener(tab => {
-  chrome.tabs.create({
-    url: chrome.runtime.getURL("popup.html"),
-  });
-});
+// chrome.browserAction.onClicked.addListener(tab => {
+//   chrome.tabs.create({
+//     url: chrome.runtime.getURL("popup.html"),
+//   });
+// });
