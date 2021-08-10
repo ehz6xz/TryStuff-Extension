@@ -1,12 +1,15 @@
-let color = '#3aa757';
+let timerID;
+let timerTime;
 
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({ color });
-  console.log('Default background color set to %cgreen', `color: ${color}`);
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.cmd === 'START_TIMER') {
+    timerTime = new Date(request.when);
+    timerID = setTimeout(() => {
+
+    }, timerTime.getTime() - Date.now());
+  } else if (request.cmd === 'GET_TIME') {
+    sendResponse({ time: timerTime});
+  } else if (request.cmd === 'STOP_TIMER') {
+    
+  }
 });
-
-// chrome.browserAction.onClicked.addListener(tab => {
-//   chrome.tabs.create({
-//     url: chrome.runtime.getURL("popup.html"),
-//   });
-// });
