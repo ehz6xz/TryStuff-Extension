@@ -1,49 +1,63 @@
 :root {
   --on: #ffffff;
   --off: #000000;
+  font-size: 16px;
+  
 }
 
 body {
+  font-weight: bold;
   background-color: var(--on);
   text-align: center;
 }
 
+button {
+  background-color: var(--on);
+  border: none;
+}
+
+h3 {
+  color: var(--off);
+  margin: 0.6rem;
+  font-size: large;
+  font-weight: bold;
+}
+
 .main-container {
+  color: var(--off);
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   align-items: center;
-  padding: 10px;
+  padding: 0.6rem;
   border: 2px solid var(--off);
+  width: 15rem
 }
 
 .head-container {
-  color: var(--off);
   border: 2px solid var(--off);
   font-size: large;
   font-weight: bold;
-  padding: 10px;
-  margin: 10px;
-  width: 80%;
+  padding: 0.6rem;
+  margin: 0.6rem;
+  width: 10.4rem;
 }
 
 .choice-container {
   display: grid;
-  margin: 10px;
-  padding: 5px;
-  background-color: var(--on);
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
+  box-sizing: border-box;
 }
 
 .choice-button {
-  margin: 10px;
-  width: 40px;
-  height: 40px;
-  padding: 10px;
+  margin: 0.6rem;
+  width: 3rem;
+  height: 3rem;
   font-size: large;
   font-weight: bold;
-  color: var(--off)
+  color: var(--off);
+  border: 2px solid var(--off);
 }
 
 .choice-button:hover {
@@ -56,24 +70,22 @@ body {
   border: 2px solid var(--on);
 }
 
-.timer-container {
-  padding: 10px;
-  margin: 10px;
-  width: 80%;
+#timerTimeContainer {
+  height: 3fr;
 }
 
-button {
-  background-color: var(--on);
+.timer-button-container {
   border: 2px solid var(--off);
+  margin: 0.6rem;
+  width: 10.4rem;
+  padding: 0.6rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
 }
+
+
 
 #timerButton {
   width: 100%;
 }
 
-h3 {
-  color: var(--off);
-  margin: 10px;
-  font-size: large;
-  font-weight: bold;
-}

@@ -24,12 +24,28 @@
         <button class="choice-button" data-handler="b_I">I</button>
       </div>
       
-      <div class="timer-container">
+      <div class="head-container" id="timerTimeContainer" style="display: none">
+        <h3 id="timerHead">YOU'VE BEEN WORKING FOR:</h3>
+        <h3 id="timerTime">
+          <span id="hours">
+            00
+          </span>
+          :
+          <span id="minutes">
+            00
+          </span>
+          :
+          <span id="seconds">
+            00
+          </span>
+        </h3>
+      </div>
+
+      <div class="timer-button-container">
         <button id="timerButton">
           <h3 id="timerText">START</h3>
         </button>
       </div>
-
     </div>
     <script src="stopwatch.js"></script>
   </body>
