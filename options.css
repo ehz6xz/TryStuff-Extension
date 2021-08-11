@@ -1,0 +1,42 @@
+h1 {
+    padding: 10px;
+    display: inline;
+}
+
+header {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+table, th, td {
+    border: 1px solid black; 
+}
+
+td {
+    font-size: 32px;
+    padding: 10px;
+    min-width: 200px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+#traitTable {
+    position: absolute;
+    padding: 10px;
+}
+
+#content.open{
+    color: red;
+}
+
+.blue {
+    color: blue;
+}
+
+#timerButton {
+    height: 100px;
+    width: 100px;
+}

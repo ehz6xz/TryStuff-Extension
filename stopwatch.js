@@ -77,13 +77,7 @@ var buttonClick = container && container.addEventListener("click", (event) => {
   }
 })
 
-
-
-
-
-
 timerButton.addEventListener("click", toggleTimer)
-
 function toggleTimer() {
   var x = document.getElementById("timerText");
   var off = "#000000"
