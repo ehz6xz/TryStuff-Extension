@@ -1,5 +1,3 @@
-var off = "#000000"
-var on = "#ffffff"
 var timerButton = document.getElementById("timerButton");
 var root = document.documentElement;
 var choiceText = document.getElementById("choiceText");
@@ -7,6 +5,12 @@ var timerText = document.getElementById("timerText");
 var timerTimeContainer = document.getElementById("timerTimeContainer");
 var choiceContainer = document.querySelector(".choice-container")
 var timerTime = document.getElementById("timerTime")
+var startTime;
+var timerInterval;
+var elapsedTime = 0;
+var endTime;
+
+/**************************************************************************************************/
 
 //Maps buttons to their functions
 var buttonMap = {
@@ -39,64 +43,82 @@ var buttonMap = {
   },
 }
 
-var messageData = {
-  choice: "NOTHING",
-  startTime,
-  
+/**************************************************************************************************/
 
-}
-
-function setTime(elapsed) {
+function setTime(time) {
   var diffHrs = time / 3_600_000;
   var hrs = Math.floor(diffHrs);
+
   var diffMin = (diffHrs - hrs) * 60;
   var min = Math.floor(diffMin);
+  
   var sec = Math.floor((diffMin - min) * 60);
 
-  timerTime.innerHTML = `${hrs}:${min}:${sec}`;
-}
+  var formHrs = hrs.toString().padStart(2, "0");
+  var formMin = min.toString().padStart(2, "0");
+  var formSec = sec.toString().padStart(2, "0");
 
-
-
-function setTime(){
-  
+  timerTime.innerHTML = `${formHrs} : ${formMin} : ${formSec}`;
 }
 
 function startTimer() {
-  root.style.setProperty('--on', on);
-  root.style.setProperty('--off', off);
+  startTime = Date.now();
+  timerInterval = setInterval(() => {
+    elapsedTime = Date.now() - startTime;
+    setTime(elapsedTime);
+  }, 500);
 }
 
 function stopTimer() {
-  root.style.setProperty('--on', off);
-  root.style.setProperty('--off', on);
+  endTime = Date.now();
+  timerInterval = clearTimeout(timerInterval);
 }
 
 function resumeTimer() {
-  root.style.setProperty('--on', off);
-  root.style.setProperty('--off', on);
+  root.style.setProperty('--on', "#000000");
+  root.style.setProperty('--off', "#ffffff");
 }
 
-function colorFadeChange(start, end) {
-  
+/**************************************************************************************************/
+
+function showStart() {
+  timerText.innerHTML = "STOP"; //
+  timerTimeContainer.style.display = '';
+  choiceContainer.style.display = 'none';
+  root.style.setProperty('--on', "#000000");
+  root.style.setProperty('--off', "#ffffff");
+  if (choiceText.innerHTML === "...") {
+    choiceText.innerHTML = "NOTHING";
+  }
 }
+
+function showStop() {
+  timerText.innerHTML = "START";
+  timerTimeContainer.style.display = 'none';
+  choiceContainer.style.display = 'grid';
+  root.style.setProperty('--on', "#ffffff");
+  root.style.setProperty('--off', "#000000");
+}
+
+/**************************************************************************************************************/
 
 // Creates Toggle button that reformats page on button press
 function toggleTimer() {
   if (timerText.innerHTML === "START") {
     // If pressed on START button,
-    timerText.innerHTML = "STOP"; //
-    timerTimeContainer.style.display = '';
-    choiceContainer.style.display = 'none';
     startTimer();
+    showStart();
   } else {
     // If pressed on STOP button,
-    timerText.innerHTML = "START";
-    timerTimeContainer.style.display = 'none';
-    choiceContainer.style.display = 'grid';
     stopTimer();
+    showStop();
   }
 }
+
+/**************************************************************************************************************/
+
+// Start/Stop button listener
+timerButton.addEventListener("click", toggleTimer)
 
 // event handler that all button-clicks pass their event to
 // then uses buttonMap to map clicks to their function
@@ -107,6 +129,3 @@ var buttonClick = choiceContainer && choiceContainer.addEventListener("click", (
     buttonMap[handler](event)
   }
 })
-
-// Start/Stop button listener, changes color.
-timerButton.addEventListener("click", toggleTimer)
