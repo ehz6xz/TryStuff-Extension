@@ -1,7 +1,7 @@
 var timerButton = document.getElementById("timerButton");
 var root = document.documentElement;
 var choiceText = document.getElementById("choiceText");
-var timerText = document.getElementById("timerText");
+var timerButtonText = document.getElementById("timerText");
 var timerTimeContainer = document.getElementById("timerTimeContainer");
 var choiceContainer = document.querySelector(".choice-container")
 var timerTime = document.getElementById("timerTime")
@@ -67,6 +67,7 @@ function setTime(time) {
 }
 
 function startTimer() {
+  // Finds starting time and passes it to background script, and saves the choice
   startTime = Date.now();
   chrome.runtime.sendMessage({cmd: "START_TIME", startTime, choice})
   timerInterval = setInterval(() => {
@@ -76,12 +77,14 @@ function startTimer() {
 }
 
 function stopTimer() {
+  // Finds ending time and passes it to background script
   endTime = Date.now();
   chrome.runtime.sendMessage({cmd: "STOP_TIME", endTime})
   timerInterval = clearTimeout(timerInterval);
 }
 
 function resumeTimer(time) {
+  // input a time (which is retrieved from background) and resume stopwatch from there
   startTime = time;
   timerInterval = setInterval(() => {
     elapsedTime = Date.now() - startTime;
@@ -93,7 +96,8 @@ function resumeTimer(time) {
 /**************************************************************************************************/
 
 function showStart() {
-  timerText.innerHTML = "STOP"; //
+  // Changes button text, flips colors, and changes display
+  timerButtonText.innerHTML = "STOP"; //
   timerTimeContainer.style.display = '';
   choiceContainer.style.display = 'none';
   root.style.setProperty('--on', "#000000");
@@ -102,7 +106,8 @@ function showStart() {
 }
 
 function showStop() {
-  timerText.innerHTML = "START";
+  // Changes button text, flips colors, and changes display
+  timerButtonText.innerHTML = "START";
   timerTimeContainer.style.display = 'none';
   choiceContainer.style.display = 'grid';
   root.style.setProperty('--on', "#ffffff");
@@ -113,12 +118,12 @@ function showStop() {
 
 // Creates Toggle button that reformats page on button press
 function toggleTimer() {
-  if (timerText.innerHTML === "START") {
-    // If pressed on START button,
+  if (timerButtonText.innerHTML === "START") {
+    // If pressed on START button, start the timer and show the running stopwatch page
     startTimer();
     showStart();
   } else {
-    // If pressed on STOP button,
+    // If pressed on STOP button, stop the timer and show the original page
     stopTimer();
     showStop();
   }
@@ -139,12 +144,12 @@ var buttonClick = choiceContainer && choiceContainer.addEventListener("click", (
 })
 
 chrome.runtime.sendMessage({cmd: "GET_STATE"}, response => {
-  // if the current end time is unfilled, resume timer.
-  // if (!response.time.end) {
-  //   resumeTimer(response.time.start)
-  // }
-  buttonMap[response.choice]();
-  choice = response.choice;
+  // When opening popup, send message and retrieve previously selected state
+  if (response.choice !== undefined) {
+    buttonMap[response.choice]();
+    choice = response.choice;
+  }
+  // if start time exists, then resume stop watch with given time
   if (response.start !== undefined) {
     resumeTimer(response.start);
   }
