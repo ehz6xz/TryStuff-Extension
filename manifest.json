@@ -3,10 +3,10 @@
   "description": "Track your productivity!",
   "version": "0.1",
   "manifest_version": 3,
+  "permissions": ["storage", "activeTab", "scripting"],
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["storage", "activeTab", "scripting"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
