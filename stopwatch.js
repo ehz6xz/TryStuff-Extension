@@ -145,11 +145,11 @@ var buttonClick = choiceContainer && choiceContainer.addEventListener("click", (
 
 chrome.runtime.sendMessage({cmd: "GET_STATE"}, response => {
   // // When opening popup, send message and retrieve previously selected state
-  // if (response.choice) {
-  //   // if choice is non-empty, resume from that choice state
-  //   buttonMap[response.choice]();
-  //   choice = response.choice;
-  // } // otherwise do nothing
+  if (response.choice) {
+    // if choice is non-empty, resume from that choice state
+    buttonMap[response.choice]();
+    choice = response.choice;
+  } // otherwise do nothing
   if (response.endTime === 0) {
     // if start time is non-empty, resume timer from that point
     resumeTimer(response.startTime);
