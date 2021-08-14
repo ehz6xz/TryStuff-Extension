@@ -1,0 +1,65 @@
+:root {
+    --on: #ffffff;
+    --off: #000000;
+    font-size: 18px;
+}
+
+body {
+    font-weight: bold;
+    background-color: var(--on);
+    text-align: center;
+}
+
+h1 {
+    margin: 0.2rem;
+}
+h2 {
+    margin: 0.2rem;
+}
+
+button {
+    background-color: var(--on);
+    border: none;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--off);
+    margin: 4rem;
+    padding: 2rem;
+}
+
+.head-container {
+    border: 2px solid var(--off);
+    font-size: large;
+    font-weight: bold;
+    margin: 2rem;
+}
+
+.choice-container {
+    display: grid;
+    grid-template-columns: 4rem 4rem 4rem;
+    grid-template-rows: 4rem 4rem 4rem;
+    align-self: center;
+}
+
+.choice-button {
+    margin: 0.6rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: large;
+    font-weight: bold;
+    color: var(--off);
+    border: 2px solid var(--off);
+}
+
+.choice-button:hover {
+    background-color: var(--off);
+    color: var(--on)
+}
+
+.choice-button:active {
+    background-color: var(--off);
+    border: 2px solid var(--on);
+}
